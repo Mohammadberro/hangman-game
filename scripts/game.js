@@ -6,6 +6,7 @@ const wordBank = ["pan", "arrive", "robust", "recognise", "example",
 let ranNum = Math.floor(Math.random() * wordBank.length);
 let ranWord = wordBank[ranNum];
 let dashes = [];
+let guessedLetters = [];
 let wrongGuesses = 0;
 const answerSection = document.getElementById("answer-section");
 const lettersQuery = document.querySelectorAll('.letter');
@@ -64,6 +65,7 @@ function checkGuess(letter){
             updateDashes(letter, i);
             renderDashes(dashes);
             correctGuess = true;
+            console.log("You Got it Right!")
         }
     }
 
@@ -71,41 +73,79 @@ function checkGuess(letter){
         console.log("You Won!");
     }   
 
-    if (!correctGuess && wrongGuesses <= 6 && dashes.join("") != ranWord){
+    if (!correctGuess && wrongGuesses <= 5 && dashes.join("") != ranWord){
+        if (5 > wrongGuesses){
+        console.log("You Are Hanging!")
+        }
         wrongGuesses += 1
         renderHangman(wrongGuesses)
         }
     if (wrongGuesses == 6){
-        console.log("You Got Hanged!")
+        renderHangman(wrongGuesses)
+        console.log("You Got Hanged!");
+        wrongGuesses+=1
         }
     }
+
+function alphabitChecker(pressedKey){
+    if (pressedKey.length > 1){
+        return false;
+    }
+    let regex = /^[a-zA-Z]+$/;
+    return regex.test(pressedKey);
+}
+
 function mouseClickedElements(lettersQuery){
     lettersQuery.forEach((element) => {
         element.addEventListener('click', (e) => {
             element.classList.add("pressed");
-            const pointerPressed = (e.target.innerText). toLowerCase();
-            console.log(pointerPressed)
-            checkGuess(pointerPressed);
+            const pointerPressedKey = (e.target.innerText). toLowerCase();
+            if (guessedLetters.includes(pointerPressedKey)){
+                console.log("Already Guessed!");
+                console.log(`Guessed Letters: ${guessedLetters}`)
+            }
+            else{
+                guessedLetters.push(pointerPressedKey);
+                console.log(pointerPressedKey);
+                checkGuess(pointerPressedKey);
+                addPressedAnimation(pointerPressedKey);
+
+            }
         });
     });
 }
 
-mouseClicked = mouseClickedElements(lettersQuery);
+pointerTracker = mouseClickedElements(lettersQuery);
 
-
-
-function keyPressed(){
+function keyPressedElements(){
     document.addEventListener('keydown', function(event) {
         const pressedKey = event.key.toLowerCase();
-        console.log(pressedKey);
-        checkGuess(pressedKey);
-        lettersQuery.forEach((element) => {
-            if (pressedKey.toUpperCase() == element.textContent){
-                element.classList.add("pressed");
+
+        if (guessedLetters.includes(pressedKey)){
+            console.log("Already Guessed!");
+            console.log(`Guessed Letters: ${guessedLetters}`)
+        }
+        else{    
+            if (!alphabitChecker(pressedKey)){
+                console.log('oops, missclick ?');
             }
-        })
+            else{
+                guessedLetters.push(pressedKey);
+                console.log(pressedKey);
+                checkGuess(pressedKey);
+                addPressedAnimation(pressedKey);
+            }
+        }
     });
 }
 
-keyboardClicked = keyPressed();
+strokeTracker = keyPressedElements();
+
+function addPressedAnimation(pressedKey){
+    lettersQuery.forEach((element) => {
+        if (pressedKey.toUpperCase() == element.textContent){
+            element.classList.add("pressed");
+            }
+        })
+    }
  
