@@ -66,12 +66,16 @@ function checkGuess(letter){
             correctGuess = true;
         }
     }
-    if (dashes.join("") == ranWord){
+
+    if (dashes.join("") == ranWord && wrongGuesses < 6){
         console.log("You Won!");
-    }    
-    if (!correctGuess){
+    }   
+
+    if (!correctGuess && wrongGuesses <= 6){
         wrongGuesses += 1
         renderHangman(wrongGuesses)
+        if (wrongGuesses => 6)
+        console.log("You Got Hanged!")
         }
     }
 function mouseClickedElements(lettersQuery){
@@ -89,12 +93,18 @@ function mouseClickedElements(lettersQuery){
 
 mouseClicked = mouseClickedElements(lettersQuery);
 
+
+
 function keyPressed(){
     document.addEventListener('keydown', function(event) {
-        const pressed = event.key;
-        console.log(pressed);
-        checkGuess(pressed);
-        
+        const pressedKey = event.key.toLowerCase();
+        console.log(pressedKey);
+        checkGuess(pressedKey);
+        lettersQuery.forEach((element) => {
+            if (pressedKey.toUpperCase() == element.textContent){
+                element.classList.add("pressed");
+            }
+        })
     });
 }
 
