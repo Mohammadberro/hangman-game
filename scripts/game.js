@@ -6,6 +6,7 @@ let ranWord = wordBank[ranNum];
 let dashes = [];
 let answerSection = document.getElementById("answer-section");
 const lettersQuery = document.querySelectorAll('.letter');
+let wrongGuesses = 0;
 
 function fillDashesList(ranWord){
     for (i = 0; i < ranWord.length; i++) {
@@ -17,16 +18,13 @@ fillDashesList(ranWord)
 
 console.log(dashes);
 
-function updateDashes(letter) {
-    for (i = 0; i < ranWord.length; i++) {
-        if (ranWord[i] === letter) {
+function updateDashes(letter, i) {
             dashes[i] = letter;
-        }
-    }
-    console.log(dashes)
 }
 
-function renderDashes(ranWord){
+console.log(dashes);
+
+function renderDashes(dashes){
     answerSection.innerHTML = ""
     for (i = 0; i < dashes.length;i++){
         answerSection.innerHTML += `<div>${dashes[i]}&nbsp;</div>`;
@@ -35,6 +33,16 @@ function renderDashes(ranWord){
 }
 renderDashes(dashes);
 
+function checkGuess(letter){
+    let correctGuess = false;
+    for (i = 0; i < ranWord.length; i++) {
+        if (ranWord[i] == letter) {
+            updateDashes(letter, i);
+            correctGuess = true;
+        }
+    
+    }
+}
 function mouseClickedElements(lettersQuery){
     lettersQuery.forEach((element) => {
         element.addEventListener('click', (e) => {
@@ -42,9 +50,7 @@ function mouseClickedElements(lettersQuery){
         console.log(e);
         const pointerPressed = (e.target.innerText). toLowerCase();
         console.log(pointerPressed)
-        updateDashes(pointerPressed);
-        renderDashes();
-        // checkWin();
+        checkGuess(pointerPressed);
         });
     });
 }
@@ -54,12 +60,10 @@ function keyPressed(){
     document.addEventListener('keydown', function(event) {
         const pressed = event.key;
         console.log(pressed)
-        updateDashes(pressed);
-        renderDashes();
-        // checkWin();
+        checkGuess(pressed);
     });
 }
 
-keyboardClicked = keyPressed()
+keyboardClicked = keyPressed();
 
 
