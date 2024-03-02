@@ -17,9 +17,18 @@ fillDashesList(ranWord)
 
 console.log(dashes);
 
+function updateDashes(letter) {
+    for (i = 0; i < ranWord.length; i++) {
+        if (ranWord[i] === letter) {
+            dashes[i] = letter;
+        }
+    }
+    console.log(dashes)
+}
+
 function renderDashes(ranWord){
     answerSection.innerHTML = ""
-    for (i = 0; i < ranWord.length;i++){
+    for (i = 0; i < dashes.length;i++){
         answerSection.innerHTML += `<div>${dashes[i]}&nbsp;</div>`;
     }
 
@@ -31,11 +40,11 @@ function mouseClickedElements(lettersQuery){
         element.addEventListener('click', (e) => {
         console.log('got clicked');
         console.log(e);
-        const pressed = (e.target.innerText);
-        console.log(pressed)
-        updateDashes(pressed);
+        const pointerPressed = (e.target.innerText). toLowerCase();
+        console.log(pointerPressed)
+        updateDashes(pointerPressed);
         renderDashes();
-        checkWin();
+        // checkWin();
         });
     });
 }
@@ -47,7 +56,7 @@ function keyPressed(){
         console.log(pressed)
         updateDashes(pressed);
         renderDashes();
-        checkWin();
+        // checkWin();
     });
 }
 
