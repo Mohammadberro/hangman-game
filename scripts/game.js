@@ -71,18 +71,17 @@ function checkGuess(letter){
         console.log("You Won!");
     }   
 
-    if (!correctGuess && wrongGuesses <= 6){
+    if (!correctGuess && wrongGuesses <= 6 && dashes.join("") != ranWord){
         wrongGuesses += 1
         renderHangman(wrongGuesses)
-        if (wrongGuesses => 6)
+        }
+    if (wrongGuesses == 6){
         console.log("You Got Hanged!")
         }
     }
 function mouseClickedElements(lettersQuery){
     lettersQuery.forEach((element) => {
         element.addEventListener('click', (e) => {
-            console.log('got clicked');
-            console.log(e);
             element.classList.add("pressed");
             const pointerPressed = (e.target.innerText). toLowerCase();
             console.log(pointerPressed)
