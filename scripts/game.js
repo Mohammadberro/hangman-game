@@ -20,11 +20,12 @@ console.log(dashes)
 
 function renderDashes(ranWord){
     for (i = 0; i < ranWord.length;i++){
-        answerSection.innerHTML += `<div>${dashes[i]}</div>`;
+        answerSection.innerHTML += `<div>${dashes[i]}&nbsp;</div>`;
     }
 
 }
 renderDashes(dashes)
+
 letters.forEach((element) => {
     element.addEventListener('click', (e) => {
       console.log('got clicked');
