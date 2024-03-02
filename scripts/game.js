@@ -6,7 +6,7 @@ let ranWord = wordBank[ranNum];
 let ranWordLength = ranWord.length;
 let dashes = [];
 let answerSection = document.getElementById("answer-section");
-const letters = document.querySelectorAll('.letter')
+const lettersQuery = document.querySelectorAll('.letter');
 
 function fillDashesList(ranWord){
     for (i = 0; i < ranWord.length; i++) {
@@ -16,7 +16,7 @@ function fillDashesList(ranWord){
 
 fillDashesList(ranWord)
 
-console.log(dashes)
+console.log(dashes);
 
 function renderDashes(ranWord){
     for (i = 0; i < ranWord.length;i++){
@@ -24,12 +24,26 @@ function renderDashes(ranWord){
     }
 
 }
-renderDashes(dashes)
+renderDashes(dashes);
 
-letters.forEach((element) => {
-    element.addEventListener('click', (e) => {
-      console.log('got clicked');
-      console.log(e);
-      console.log(e.target.innerText);
+function mouseClickedElements(lettersQuery){
+    lettersQuery.forEach((element) => {
+        element.addEventListener('click', (e) => {
+        console.log('got clicked');
+        console.log(e);
+        const pressed = (e.target.innerText);
+        console.log(pressed)
+        });
     });
-  });
+}
+mouseClicked = mouseClickedElements(lettersQuery);
+
+function keyPressed(){
+    document.addEventListener('keydown', function(event) {
+        const pressed = event.key;
+        console.log(pressed)
+    });
+}
+
+keyboardClicked = keyPressed()
+
