@@ -79,6 +79,7 @@ function mouseClickedElements(lettersQuery){
         element.addEventListener('click', (e) => {
             console.log('got clicked');
             console.log(e);
+            element.classList.add("pressed");
             const pointerPressed = (e.target.innerText). toLowerCase();
             console.log(pointerPressed)
             checkGuess(pointerPressed);
@@ -93,9 +94,9 @@ function keyPressed(){
         const pressed = event.key;
         console.log(pressed);
         checkGuess(pressed);
+        
     });
 }
 
 keyboardClicked = keyPressed();
-
-
+ 
