@@ -3,7 +3,6 @@ const wordBank = ["pan", "arrive", "robust", "recognise", "example",
 
 let ranNum = Math.floor(Math.random() * wordBank.length);
 let ranWord = wordBank[ranNum];
-let ranWordLength = ranWord.length;
 let dashes = [];
 let answerSection = document.getElementById("answer-section");
 const lettersQuery = document.querySelectorAll('.letter');
@@ -19,6 +18,7 @@ fillDashesList(ranWord)
 console.log(dashes);
 
 function renderDashes(ranWord){
+    answerSection.innerHTML = ""
     for (i = 0; i < ranWord.length;i++){
         answerSection.innerHTML += `<div>${dashes[i]}&nbsp;</div>`;
     }
@@ -33,6 +33,9 @@ function mouseClickedElements(lettersQuery){
         console.log(e);
         const pressed = (e.target.innerText);
         console.log(pressed)
+        updateDashes(pressed);
+        renderDashes();
+        checkWin();
         });
     });
 }
@@ -42,8 +45,12 @@ function keyPressed(){
     document.addEventListener('keydown', function(event) {
         const pressed = event.key;
         console.log(pressed)
+        updateDashes(pressed);
+        renderDashes();
+        checkWin();
     });
 }
 
 keyboardClicked = keyPressed()
+
 
